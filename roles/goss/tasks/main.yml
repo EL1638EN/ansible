@@ -1,0 +1,6 @@
+---
+# tasks file for goss
+
+- name: Install Goss latest version
+  command: >
+    curl -fsSL https://goss.rocks/install | sh
