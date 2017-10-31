@@ -1,0 +1,40 @@
+---
+# tasks file for oracle-jdk8
+
+- name: Install package software-properties-common
+  apt:
+    name: software-properties-common
+    state: present
+
+- name: Add repository
+  apt_repository:
+    repo: deb http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main
+    validate_certs: no
+    state: present
+
+- name: Add an apt key by id from a keyserver
+  apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: EEA14886
+
+- name: Update repository
+  command: >
+    apt update
+
+- name: Prepare config for installation
+  shell: echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true" | sudo debconf-set-selections
+
+- name: Install oracle-java8-installer
+  apt:
+    name: oracle-java8-installer
+    state: present
+
+- name: Define JAVA_HOME variable
+  lineinfile:
+    path: /etc/environment
+    line: 'JAVA_HOME="/usr/lib/jvm/java-8-oracle"'
+    owner: root
+    group: root
+
+- name: Relaod environments variables
+  shell: . /etc/environment
