@@ -1,0 +1,8 @@
+---
+
+###################
+# Playbook to install goss
+###################
+- hosts: all
+  roles:
+    - { role: goss, tags: ['goss'] }
