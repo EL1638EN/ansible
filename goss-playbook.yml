@@ -1,8 +1,9 @@
 ---
 
 ###################
-# Playbook to install goss
+# Playbook to install role goss
 ###################
 - hosts: all
+  become: yes
   roles:
     - { role: goss, tags: ['goss'] }

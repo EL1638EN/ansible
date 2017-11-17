@@ -1,6 +1,11 @@
 ---
 # tasks file for goss
 
-- name: Install Goss latest version
-  command: >
-    curl -fsSL https://goss.rocks/install | sh
+- name: Download goss library
+  get_url:
+    url: "{{ goss_url }}"
+    dest: "{{ goss_destination }}"
+    owner: root
+    group: root
+    validate_certs: no
+    mode: 0755
