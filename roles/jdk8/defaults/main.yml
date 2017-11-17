@@ -1,0 +1,19 @@
+---
+# defaults file for jdk8
+
+# Version du jdk à installer
+jdk8_java_version: 1.8.0_131
+# Répertoire contenant  les JDKs
+jdk8_versions: "/opt/jdk_versions"
+# Chemin absolu du JDK à installer
+jdk8_java_home: "{{ jdk8_versions }}/jdk{{ jdk8_java_version }}"
+# Fichier .tar.gz  du JDK pour une machine 32 bits
+jdk8_tarball_name_32: jdk-8u131-linux-i586.tar.gz
+# Fichier .tar.gz  du JDK pour une machine 64bits
+jdk8_tarball_name_64: jdk-8u131-linux-x64.tar.gz
+# Adresse du repository où sont stockés les fichiers .tar.gz
+jdk8_repo_url: "http://192.168.0.11:9081/nexus/content/repositories/releases"
+# URL de téléchargement du JDK pour une machine 32 bits
+jdk8_32_url: "{{ jdk8_repo_url }}/{{ jdk8_tarball_name_32 }}"
+# URL de téléchargement du JDK pour une machine 64 bits
+jdk8_64_url: "{{ jdk8_repo_url }}/{{ jdk8_tarball_name_64 }}"
