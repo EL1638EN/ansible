@@ -6,16 +6,16 @@
     name: software-properties-common
     state: present
 
-- name: Add repository
-  apt_repository:
-    repo: deb http://ppa.launchpad.net/webupd8team/java/ubuntu xenial main
-    validate_certs: no
-    state: present
-
 - name: Add an apt key by id from a keyserver
   apt_key:
     keyserver: keyserver.ubuntu.com
     id: EEA14886
+
+- name: Add repository
+  apt_repository:
+    repo: deb http://ppa.launchpad.net/webupd8team/java/ubuntu trusty main
+    validate_certs: no
+    state: present
 
 - name: Update repository
   command: >

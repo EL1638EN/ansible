@@ -1,4 +1,4 @@
-Role Name
+oracle-jdk8
 =========
 
 Ansible role to install Oracle JDK8
