@@ -1,0 +1,10 @@
+---
+# tasks file for jdk8
+
+- name: Get JDK/Java version installed on the node
+  shell: "{{ jdk8_java_home }}/bin/java -version 2>&1"
+  register: java_version_result
+  ignore_errors: True
+
+- include: install.yml
+  when: (java_version_result|failed) or (jdk8_java_version not in java_version_result.stdout)

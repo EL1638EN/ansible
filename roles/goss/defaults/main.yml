@@ -1,0 +1,7 @@
+---
+# defaults file for goss
+
+goss_version: "v0.3.5"
+goss_architecture: "amd64"
+goss_url: "https://github.com/aelsabbahy/goss/releases/download/{{ goss_version }}/goss-linux-{{ goss_architecture }}"
+goss_destination: "/usr/local/bin/goss"

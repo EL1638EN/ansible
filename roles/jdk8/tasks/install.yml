@@ -1,0 +1,44 @@
+---
+
+- name: Create jdk version directory
+  file:
+    path: "{{ jdk8_versions }}"
+    state: directory
+    owner: root
+    group: root
+
+- name: Download and decompress jdk 32 bits Archive
+  unarchive:
+    src: "{{ jdk8_32_url }}"
+    dest: "{{ jdk8_versions }}/"
+    owner: root
+    group: root
+    remote_src: True
+    validate_certs: no
+  when: "ansible_userspace_bits == '32'"
+
+- name: Download and decompress jdk 64 bits Archive
+  unarchive:
+    src: "{{ jdk8_64_url }}"
+    dest: "{{ jdk8_versions }}/"
+    owner: root
+    group: root
+    remote_src: True
+    validate_certs: no
+  when: "ansible_userspace_bits == '64'"
+
+- name: Add/Update environments variables
+  blockinfile:
+    dest: "/etc/profile"
+    insertafter: EOF
+    block: |
+      # Java Home
+      JAVA_HOME="{{ jdk8_java_home }}"
+      export JAVA_HOME
+      # Update PATH
+      PATH=$PATH:"$JAVA_HOME/bin"
+      export PATH
+    state: present
+
+- name: Relaod environments variables
+  shell: . /etc/profile
