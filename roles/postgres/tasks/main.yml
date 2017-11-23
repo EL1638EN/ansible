@@ -1,0 +1,15 @@
+---
+# tasks file for postgres
+
+
+- name: Installing PostgreSQL Server packages
+  apt:
+    pkg: "{{ item }}"
+    state: present
+  with_items:
+    - "{{ postgres_server_pkg }}"
+    - "{{ postgres_client_pkg }}"
+
+- name: Test postgres server with goss
+  include: goss.yml
+  when: postgres_goss_enabled

@@ -1,8 +1,0 @@
----
-
-###################
-# Playbook to install oracle-jkd8
-###################
-- hosts: all
-  roles:
-    - { role: oracle-jkd8, tags: ['oracle-jkd8'] }
