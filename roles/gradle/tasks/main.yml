@@ -1,6 +1,14 @@
 ---
 # tasks file for gradle
 
+- name: Install archive tools
+  apt:
+    name: "{{item}}"
+    state: present
+  with_items:
+    - "tar"
+    - "unzip"
+
 - name: Create gradle install directory
   file:
     path: "{{ gradle_install_directory }}"
