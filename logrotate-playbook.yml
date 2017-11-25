@@ -6,4 +6,5 @@
 - hosts: all
   become: yes
   roles:
-    - { role: logrotate, tags: ['logrotate'] }
+    - role: logrotate
+      tags: ['logrotate']

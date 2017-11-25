@@ -8,4 +8,4 @@
   roles:
     - role: postgres
       postgres_goss_enabled: True
-      tags: postgres
+      tags: ['postgres']

@@ -6,4 +6,5 @@
 - hosts: all
   become: yes
   roles:
-    - { role: goss, tags: ['goss'] }
+    - role: goss
+      tags: ['goss']

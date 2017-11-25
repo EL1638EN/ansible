@@ -6,4 +6,5 @@
 - hosts: all
   become: yes
   roles:
-    - { role: gradle, tags: ['gradle'] }
+    - role: gradle
+      tags: ['gradle']

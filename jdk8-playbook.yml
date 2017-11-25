@@ -6,4 +6,5 @@
 - hosts: all
   become: yes
   roles:
-    - { role: jdk8, tags: ['jdk8'] }
+    - role: jdk8
+      tags: ['jdk8']

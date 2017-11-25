@@ -6,4 +6,5 @@
 - hosts: all
   become: yes
   roles:
-    - { role: maven, tags: ['maven'] }
+    - role: maven
+      tags: ['maven']
