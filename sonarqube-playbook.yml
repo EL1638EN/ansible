@@ -1,0 +1,11 @@
+---
+
+###################
+# Playbook to install role SonarQube
+###################
+- hosts: serverDebian
+  become: yes
+  roles:
+    - role: sonarqube
+      sonarqube_postgres_database_enabled: True
+      tags: ['sonarqube']

@@ -1,0 +1,7 @@
+---
+# handlers file for sonarqube
+
+- name: Restart SonarQube
+  systemd:
+    name: sonar
+    state: restarted
