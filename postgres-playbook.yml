@@ -3,7 +3,7 @@
 ###################
 # Playbook to install role postgres
 ###################
-- hosts: all
+- hosts: serverDebian2
   become: yes
   roles:
     - role: postgres
