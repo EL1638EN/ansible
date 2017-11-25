@@ -1,6 +1,14 @@
 ---
 # tasks file for maven
 
+- name: Install archive tools
+  apt:
+    name: "{{item}}"
+    state: latest
+  with_items:
+    - "tar"
+    - "unzip"
+
 - name: Create maven directory
   file:
     path: "{{ maven_install_directory }}"
