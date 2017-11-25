@@ -3,7 +3,7 @@
 ###################
 # Playbook to install role jkd8
 ###################
-- hosts: all
+- hosts: serverDebian
   become: yes
   roles:
     - role: jdk8

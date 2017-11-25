@@ -48,5 +48,14 @@
       export PATH
     state: present
 
+- name: Create link to java command
+  file:
+    src: "{{ jdk8_java_home }}/bin/java"
+    path: "/usr/bin/java"
+    state: link
+    owner: root
+    group: root
+    mode: 0755
+
 - name: Relaod environments variables
   shell: . /etc/profile
