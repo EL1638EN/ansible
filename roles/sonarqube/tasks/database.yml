@@ -19,9 +19,18 @@
     owner: "{{ sonarqube_postgres_username }}"
     state: present
 
+- name : Create sonar.properties backup file
+  copy:
+    src: "{{ sonarqube_home }}/conf/sonar.properties"
+    dest: "{{ sonarqube_home }}/conf/sonar.properties.backup"
+    owner: root
+    group: root
+    mode: 0644
+    remote_src: yes
+
 - name: Change the config of sonar to apply postgres datas
   lineinfile:
-    dest: "{{ sonarqube_home }}/conf/sonar.properties"
+    path: "{{ sonarqube_home }}/conf/sonar.properties"
     regexp: "{{ item.regexp }}"
     line: "{{ item.value }}"
     state: present

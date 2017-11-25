@@ -31,7 +31,7 @@
 
 - name: Change the config of sonar web port
   lineinfile:
-    dest: "{{ sonarqube_home }}/conf/sonar.properties"
+    path: "{{ sonarqube_home }}/conf/sonar.properties"
     regexp: "^#sonar.web.port="
     line: "sonar.web.port={{ sonarqube_web_port }}"
     state: present
