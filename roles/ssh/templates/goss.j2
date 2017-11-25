@@ -1,0 +1,14 @@
+---
+
+package:
+  "{{ ssh_package }}":
+    installed: true
+
+service:
+  ssh:
+    enabled: true
+    running: true
+
+port:
+  tcp:{{ssh_config_port}}:
+    listening: true

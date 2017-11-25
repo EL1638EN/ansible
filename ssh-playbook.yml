@@ -1,0 +1,12 @@
+---
+
+###################
+# Playbook to install role ssh
+###################
+- hosts: ssh
+  become: yes
+  roles:
+    - role: ssh
+      ssh_delete_obsolete_packages: True
+      ssh_goss_enabled: True
+      tags: ['ssh']

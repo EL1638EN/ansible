@@ -1,31 +1,49 @@
-Role Name
+ssh
 =========
 
-A brief description of the role goes here.
+Install & configure ssh.
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+None.
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+| Nom	        | Default Value	| Description|
+| ------------- |:-------------:| ----------:|
+|ssh_delete_obsolete_packages|False|Yes/No delete obsolete package.|
+|ssh_package|openssh-server|Ssh package.|
+|ssh_banner_information|Linux SSH Server|SSH Banner information.|
+|ssh_tmout|900|After 900 seconds of inactivity, the ssh connexion is disabled|
+|ssh_histsize|20|.|
+|ssh_histfilesize|20|.|
+|ssh_motd_file|/etc/motd|The Message Of The Day.|
+|ssh_banner_file|/etc/ssh/ssh_banner|SSH Banner.|
+|ssh_profile_file|/etc/profile|Profile file address.|
+|ssh_config_port|22|SSH TCP port.|
+|ssh_config_file|/etc/ssh/sshd_config|SSH Config file.|
+|ssh_goss_enabled|False|Enable/Disable Goss test after installation.|
+|ssh_version|6.7|SSH version.|
+|ssh_version_support_etm|6.3|SSH version support ETM.|
+|ssh_macs_etm|MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,hmac-sha1|MAC ETM algorithm.|
+|ssh_macs_old|MACs hmac-sha1|Old MAC Algorithm.|
+|ssh_config|list|List of configuration directives for SSH.|
+|ssh_issue_files|list|List of issue files.|
+
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+None.
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
     - hosts: servers
       roles:
-         - { role: username.rolename, x: 42 }
+         - { role: ssh }
 
 License
 -------
@@ -35,4 +53,4 @@ BSD
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+Eric LEGBA.
