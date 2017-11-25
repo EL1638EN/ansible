@@ -3,7 +3,7 @@
 ###################
 # Playbook to install role ssh
 ###################
-- hosts: ssh
+- hosts: serverDebian2
   become: yes
   roles:
     - role: ssh
