@@ -1,0 +1,10 @@
+---
+
+###################
+# Playbook to install role postgres
+###################
+- hosts: serverDebian2
+  become: yes
+  roles:
+    - role: postgres_instance
+      tags: ['postgres_instance']
