@@ -15,6 +15,8 @@ firewall_input_allowed_ports:
  - { port: "123", protocol: "tcp", comment: "TCP - NTP Input trafic" }
  - { port: "143", protocol: "tcp", comment: "TCP - IMAP Input trafic" }
  - { port: "443", protocol: "tcp", comment: "TCP - HTTPS Input trafic" }
+ - { port: "3306", protocol: "tcp", comment: "TCP - MySQL Input trafic" }
+ - { port: "5432", protocol: "tcp", comment: "TCP - PostgreSQL Input trafic" }
  - { port: "8080", protocol: "tcp", comment: "TCP - HTTP Input trafic - Apache Tomcat" }
  - { port: "8443", protocol: "tcp", comment: "TCP - HTTPS Input trafic - Apache Tomcat" }
  - { port: "9000", protocol: "tcp", comment: "TCP - HTTP Input trafic - SonarQube" }
@@ -30,6 +32,8 @@ firewall_output_allowed_ports:
  - { port: "123", protocol: "tcp", comment: "TCP - NTP Output trafic" }
  - { port: "143", protocol: "tcp", comment: "TCP - IMAP Output trafic" }
  - { port: "443", protocol: "tcp", comment: "TCP - HTTPS Output trafic" }
+ - { port: "3306", protocol: "tcp", comment: "TCP - MySQL Output trafic" }
+ - { port: "5432", protocol: "tcp", comment: "TCP - PostgreSQL Output trafic" }
  - { port: "8080", protocol: "tcp", comment: "TCP - HTTP Output trafic - Apache Tomcat" }
  - { port: "8443", protocol: "tcp", comment: "TCP - HTTPS Output trafic - Apache Tomcat" }
  - { port: "9000", protocol: "tcp", comment: "TCP - HTTP Output trafic - SonarQube" }
