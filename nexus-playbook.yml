@@ -1,0 +1,13 @@
+---
+
+###################
+# Playbook to install role nexus
+###################
+- hosts: serverDebian
+  become: yes
+  roles:
+    - role: nexus
+      nexus_host: 192.168.56.2
+      nexus_network_interface: "enp0s8"
+      nexus_iptables_enabled: True
+      tags: ['nexus']
