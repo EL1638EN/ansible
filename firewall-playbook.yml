@@ -1,0 +1,12 @@
+---
+
+###################
+# Playbook to install role firewall
+###################
+- hosts: serverDebian
+  become: yes
+  roles:
+    - role: firewall
+      firewall_network_interface: "enp0s8"
+      firewall_goss_enabled: True
+      tags: ['firewall']
