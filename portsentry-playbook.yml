@@ -1,0 +1,11 @@
+---
+
+###################
+# Playbook to install role portsentry
+###################
+- hosts: serverDebian
+  become: yes
+  roles:
+    - role: portsentry
+      portsentry_goss_enabled: True
+      tags: ['portsentry']

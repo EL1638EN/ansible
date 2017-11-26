@@ -1,0 +1,59 @@
+---
+# tasks file for portsentry
+
+- name: Install portsentry
+  apt:
+    pkg: "{{ portsentry_package }}"
+    state: present
+
+- name : Check {{ portsentry_config_file }} backup file exists
+  stat:
+    path: "{{ portsentry_config_file }}.backup"
+  register: portsentry_config_backup_file
+
+- name : Create {{ portsentry_config_file }} backup file if not exists
+  copy:
+    src: "{{ portsentry_config_file }}"
+    dest: "{{ portsentry_config_file }}.backup"
+    owner: root
+    group: root
+    mode: 0644
+    remote_src: yes
+  when: not portsentry_config_backup_file.stat.exists
+
+- name : Check {{ portsentry_ignore_file }} backup file exists
+  stat:
+    path: "{{ portsentry_ignore_file }}.backup"
+  register: portsentry_ignore_backup_file
+
+- name : Create {{ portsentry_ignore_file }} backup file if not exists
+  copy:
+    src: "{{ portsentry_ignore_file }}"
+    dest: "{{ portsentry_ignore_file }}.backup"
+    owner: root
+    group: root
+    mode: 0644
+    remote_src: yes
+  when: not portsentry_ignore_backup_file.stat.exists
+
+- name: Copy portsentry configuration files
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: root
+    group: root
+    mode: "{{ item.mode }}"
+  with_items:
+   - "{{ portsentry_files }}"
+
+- name: Restart portsentry
+  command: echo "Restart portsentry"
+  notify:
+    - Restart portsentry
+
+- meta: flush_handlers
+  when: portsentry_goss_enabled
+
+- name: Test with goss
+  include: goss.yml
+  when: portsentry_goss_enabled
