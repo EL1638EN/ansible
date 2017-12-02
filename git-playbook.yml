@@ -1,0 +1,10 @@
+---
+
+###################
+# Playbook to install role git
+###################
+- hosts: serverDebian
+  become: yes
+  roles:
+    - role: git
+      tags: ['git']
