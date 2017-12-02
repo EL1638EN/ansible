@@ -1,0 +1,57 @@
+---
+# tasks file for apache_mod_security
+
+- name: Create the log & configuration directory for mod_security
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ apache_root_user }}"
+    group: "{{ apache_root_group }}"
+    recurse: yes
+  with_items:
+    - "{{ apache_mod_security_logs_dir }}"
+    - "{{ apache_mod_security_conf_dir }}"
+
+- name: Download, decompress mod_security library
+  unarchive:
+    src: "{{ apache_mod_security_url }}"
+    dest: "{{ apache_modules_dir }}/"
+    remote_src: True
+
+- name: Set mod_security library into Apache module directories
+  file:
+    path: "{{ apache_modules_dir }}/mod_security2.so"
+    owner: "{{ apache_root_user }}"
+    group: "{{ apache_root_group }}"
+
+- name: Install mod_security configuration files
+  template:
+    src: "{{item.src}}"
+    dest: "{{item.dest}}"
+    owner: "{{ apache_root_user }}"
+    group: "{{ apache_root_group }}"
+  with_items: "{{ apache_mod_security_conf_files }}"
+
+- name: Copy modsecurity_module.conf.j2 into Apache conf directory
+  template:
+    src : "modsecurity_module.conf.j2"
+    dest: "{{ apache_conf_dir }}/modsecurity_module.conf"
+    owner: "{{ apache_root_user }}"
+    group: "{{ apache_root_group }}"
+
+- name: Add mod_security module to the list of Apache's modules
+  lineinfile:
+    dest: "{{ apache_modules_file }}"
+    insertafter: EOF
+    line: 'LoadModule security2_module {{ apache_modules_dir }}/mod_security2.so'
+
+- name: Add mod_security configuration file
+  lineinfile:
+    dest: "{{ apache_httpd_file }}"
+    insertafter: EOF
+    line: 'Include {{ apache_conf_dir }}/modsecurity_module.conf'
+
+- name: Restart Apache
+  command: echo "Restart Apache"
+  notify:
+    - Restart Apache

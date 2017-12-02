@@ -1,0 +1,29 @@
+# tasks file for apache_status
+
+- name: Create virtual host directory for status
+  file:
+    path: "{{ apache_vhosts_dir }}/{{ apache_status_server_name }}"
+    state: directory
+    owner: "{{ apache_root_user }}"
+    group: "{{ apache_root_group }}"
+
+- name: Provide Authentication file
+  command: "{{ apache_home }}/bin/htpasswd -csb {{ apache_vhosts_dir }}/{{ apache_status_server_name }}/.htpasswd {{ apache_status_authentication_login }} {{ apache_status_authentication_passowrd }}"
+
+- name: Copy server status configuration file to Apache configuration directory
+  template:
+    src: status.conf.j2
+    dest: "{{ apache_conf_dir }}/status.conf"
+    owner: "{{ apache_root_user }}"
+    group: "{{ apache_root_group }}"
+
+- name: Add vhost_server_status.conf to HTTPD
+  lineinfile:
+    dest: "{{ apache_httpd_file }}"
+    line: 'Include {{ apache_conf_dir }}/status.conf'
+    state: present
+
+- name: Restart Apache
+  command: echo "Restart Apache"
+  notify:
+    - Restart Apache

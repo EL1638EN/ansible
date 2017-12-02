@@ -1,0 +1,79 @@
+---
+# defaults file for apache_from_scratch
+
+apache_version: 2.4.29
+apache_versions: /opt/apache_versions
+apache_home: /opt/apache2
+apache_last_version: "{{ apache_versions }}/httpd-{{ apache_version }}"
+apache_url: "http://192.168.0.11:9081/nexus/content/repositories/releases/httpd-{{apache_version}}.tar.gz"
+apache_http_default_port: 80
+apache_https_default_port: 443
+apache_logs_dir: "/var/log/apache2"
+apache_conf_dir: "{{ apache_home }}/conf"
+apache_vhosts_dir: "{{ apache_home }}/vhosts"
+apache_modules_dir: "{{ apache_home }}/modules"
+apache_modules_file: "{{ apache_conf_dir }}/modules.conf"
+apache_httpd_file: "{{ apache_conf_dir }}/httpd.conf"
+apache_init_script: /etc/init.d/apache
+apache_root_user: root
+apache_root_group: sys
+apache_user: wwwd
+apache_user_group: wwwd
+apache_log_level: warn
+apache_max_clients: 300
+apache_keep_alive: 'On'
+apache_max_keep_alive_requests: 500
+apache_keep_alive_timeout: 15
+
+# Mod Security variables
+apache_mod_security_version: 2.9.1
+apache_mod_security_url : "http://192.168.0.11:9081/nexus/content/repositories/releases/mod_security/{{ apache_mod_security_version }}/mod_security.tar.gz"
+apache_mod_security_logs_dir: "{{ apache_logs_dir }}/modsecurity"
+apache_mod_security_conf_dir: "{{ apache_conf_dir }}/modsecurity"
+apache_mod_security_conf_files:
+ - { src: 'modsecurity.conf.j2', dest: '{{ apache_mod_security_conf_dir }}/modsecurity.conf' }
+ - { src: 'modsecurity_crs_10_setup.conf.j2', dest: '{{ apache_mod_security_conf_dir }}/modsecurity_crs_10_setup.conf' }
+ - { src: 'modsecurity_crs_16_session_hijacking.conf.j2', dest: '{{ apache_mod_security_conf_dir }}/modsecurity_crs_16_session_hijacking.conf' }
+ - { src: 'modsecurity_crs_41_sql_injection_attacks.conf.j2', dest: '{{ apache_mod_security_conf_dir }}/modsecurity_crs_41_sql_injection_attacks.conf' }
+ - { src: 'modsecurity_crs_43_csrf_protection.conf.j2', dest: '{{ apache_mod_security_conf_dir }}/modsecurity_crs_43_csrf_protection.conf' }
+ - { src: 'modsecurity_crs_41_xss_attacks.conf.j2', dest: '{{ apache_mod_security_conf_dir }}/modsecurity_crs_41_xss_attacks.conf' }
+ - { src: 'modsecurity_crs_49_inbound_blocking.conf.j2', dest: '{{ apache_mod_security_conf_dir }}/modsecurity_crs_49_inbound_blocking.conf' }
+
+# Apache server status module
+apache_status_server_name: "status.fr"
+apache_status_server_alias: "www.status.fr"
+apache_status_require_ip: ""
+apache_status_require_host: ""
+apache_status_enable_authentication: True
+apache_server_admin: "root@localhost"
+apache_status_authentication_login: "EL1638EN"
+apache_status_authentication_passowrd: "Mmdp-3325"
+
+# Mod JK
+mod_jk_version: 1.2.41
+mod_jk_url: "http://192.168.0.11:9081/nexus/content/repositories/releases/mod_jk/{{ mod_jk_version }}/mod_jk.tar.gz"
+
+
+apache_iptables_enabled: False
+apache_goss_enabled: False
+apache_files:
+ - { src: 'httpd.conf.j2', dest: '{{ apache_httpd_file }}' }
+ - { src: 'modules.conf.j2', dest: '{{ apache_modules_file }}' }
+apache_required_packages:
+ - 'build-essential'
+ - 'perl'
+ - 'libpcre3'
+ - 'libpcre3-dev'
+ - 'zlib1g'
+ - 'zlib1g-dev'
+ - 'libxml2'
+ - 'libxml2-dev'
+ - 'libaprutil1'
+ - 'libaprutil1-dev'
+ - 'libssl-dev'
+ - 'automake'
+ - 'libapr1'
+ - 'libapr1-dev'
+ - 'libcurl3'
+ - 'liblua5.1-0'
+ - 'liblua5.1-0-dev'

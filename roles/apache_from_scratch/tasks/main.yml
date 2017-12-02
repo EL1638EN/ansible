@@ -1,0 +1,17 @@
+---
+# tasks file for apache_from_scratch
+
+- name: Get Apache version installed on the nodes
+  shell: bash "{{ apache_home }}/bin/apachectl" -v 2>&1 | head -n 1
+  register: apache_version_result
+
+- include: install.yml
+  when: apache_version_result|failed or (apache_version not in apache_version_result.stdout)
+
+- include: configuration.yml
+
+- include: mod_security.yml
+
+- include: mod_status.yml
+
+- include: mod_jk.yml

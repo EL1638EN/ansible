@@ -1,0 +1,24 @@
+---
+
+file:
+  {{ apache_home }}:
+    exists: true
+    owner: {{ apache_root_user }}
+    group: {{ apache_root_group }}
+    filetype: directory
+
+group:
+  {{ apache_user_group }}:
+    exists: true
+
+user:
+  {{ apache_user }}:
+    exists: true
+    groups:
+    - {{ apache_user_group }}
+    shell: /bin/false
+
+service:
+  apache:
+    enabled: true
+    running: true
