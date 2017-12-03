@@ -1,0 +1,56 @@
+---
+# defaults file for proftpd
+
+
+proftpd_version: "1.3.5"
+proftpd_user: "proftpd"
+proftpd_group: "proftpd"
+
+proftpd_server_name: "Syscom FTP Server"
+
+proftpd_config_file: "/etc/proftpd/proftpd.conf"
+proftpd_config_file_backup: "/etc/proftpd/proftpd.conf.backup"
+proftpd_modules_config_file: "/etc/proftpd/modules.conf"
+
+proftpd_log_format: "%t %a %h %U %A %r %s %f %b %T"
+proftpd_transfert_log_file: "/var/log/proftpd/xferlog"
+proftpd_system_log_file: "/var/log/proftpd/proftpd.log"
+
+# Pour renforcer la securite, il est conseillé de l'initialiser à 027
+# Par defaut, l'umask est 022.
+proftpd_umask: "022"
+proftpd_default_port: 21
+proftpd_min_passive_port: 5000
+proftpd_max_passive_port: 5100
+proftpd_network_interface: "eth0"
+proftpd_iptables_enabled: False
+
+# Variable booléenne pour activer/désactiver l'utilisation du fichier /etc/ftpusers.
+# Dans le fichier /etc/ftpusers, on trouve la liste des utilisateurs qui ne sont pas habilités à se connecter au serveur proftpd
+# http://docs.oracle.com/cd/E19253-01/816-4555/wuftp-44a/index.html
+# http://manpagesfr.free.fr/man/man5/ftpusers.5.html
+proftpd_limit_user: False
+# Liste des utilisateurs autorisés à se connectés au serveur proftpd. À compléter
+proftpd_authorized_users:
+    -""
+
+# Booleen pour renforcer la securité du serveur
+proftpd_advanced_secure: False
+proftpd_banner: "Syscom FTP Server"
+proftpd_banner_file: "/etc/proftpd/banner.txt"
+
+
+# Gestion de la configuration ProFTPd SSL
+proftpd_tls_enabled: False
+proftpd_tls_protocol: "TLSv1 SSLv3"
+proftpd_tls_config_file: "/etc/proftpd/tls.conf"
+proftpd_tls_log_file: "/var/log/proftpd/tls.log"
+proftpd_tls_config_dir: "/etc/proftpd/ssl"
+proftpd_tls_cert_file: "{{ proftpd_tls_config_dir }}/ftp.cert.pem"
+proftpd_tls_key_file: "{{ proftpd_tls_config_dir }}/ftp.key.pem"
+proftpd_tls_dns: "vhosts1.fr"
+proftpd_tls_subj: "/C=\"FR\"/ST=\"Rhone\"/L=\"Lyon\"/O=\"Syscom\"/OU=\"IT\"/CN={{ proftpd_tls_dns }}"
+proftpd_tls_files:
+ - { path: "{{ proftpd_tls_config_file }}", mode: "0644" }
+ - { path: "{{ proftpd_tls_cert_file }}", mode: "0644" }
+ - { path: "{{ proftpd_tls_key_file }}", mode: "0400" }

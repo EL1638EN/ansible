@@ -1,0 +1,26 @@
+---
+# tasks file for proftp_logrotate
+
+- name: Install logrotate package
+  apt:
+    pkg: logrotate
+    state: present
+
+- name: Copy logrotate configuration
+  template:
+    src: proftpd_logrotate.j2
+    dest: /etc/logrotate.d/proftpd
+    mode: 0644
+    owner: root
+    group: root
+
+- name: Define crontab to execute logrotate every day at 00H00
+  cron:
+    name: "Logrotate ProFTPd"
+    job: "logrotate /etc/logrotate.d/proftpd"
+    minute: "0"
+    hour: "0"
+    day: "*"
+    month: "*"
+    user: root
+    state: present

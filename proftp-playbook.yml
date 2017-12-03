@@ -1,0 +1,15 @@
+---
+
+###################
+# Playbook to install role proftpd
+###################
+- hosts: serverDebian
+  become: yes
+  roles:
+    - role: proftpd
+      proftpd_iptables_enabled: True
+      proftpd_advanced_secure: True
+      proftpd_tls_enabled: True
+      proftpd_goss_enabled: True
+      proftpd_network_interface: "enp0s8"
+      tags: ['proftpd']

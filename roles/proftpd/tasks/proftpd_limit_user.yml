@@ -1,0 +1,13 @@
+---
+# tasks file to limit proftpd user
+
+- name: Initialisation du fichier /etc/ftpusers
+  shell: cat /etc/passwd|awk -F":" "{print $ 1}" > /etc/ftpusers
+
+- name: Supprimer du fichier /etc/ftpusers les utilisateurs autorisés à se connecter au serveur proftpd
+  lineinfile:
+    dest: /etc/ftpusers
+    line: "{{ item }}"
+    state: absent
+  with_items: "{{ proftpd_authorized_users }}"
+  when: proftpd_authorized_users != None

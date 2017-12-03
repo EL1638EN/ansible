@@ -1,0 +1,96 @@
+---
+# tasks file for proftpd
+
+- name: Check if ProFTP is installed on the system
+  shell: proftpd --version
+  register: proftpd_version_result
+  ignore_errors: True
+
+- name: Install ProFTPd Server.
+  apt:
+    pkg: "{{ item }}"
+    state: present
+  with_items:
+    - "proftpd"
+    - "proftpd-basic"
+  when: proftpd_version_result|failed or (proftpd_version not in proftpd_version_result.stdout)
+
+- name: Create Group proftpd
+  group:
+    name: "{{ proftpd_group }}"
+    state: present
+
+- name: Create User proftpd
+  user:
+    name: "{{ proftpd_user }}"
+    createhome: no
+    group: "{{ proftpd_group }}"
+    shell: /bin/false
+    comment: "ProFTD Server User"
+    state: present
+
+- name : Check config backup file exists
+  stat:
+    path: "{{ proftpd_config_file }}"
+  register: backup_file
+
+- name: Copy original config file to backup
+  copy:
+    src: "{{ proftpd_config_file }}"
+    dest: "{{ proftpd_config_file_backup }}"
+    owner: root
+    group: root
+    mode: 0644
+  when:  not backup_file.stat.exists
+
+- name: Copy custom proftpd config file
+  template:
+    src: proftpd.conf.j2
+    dest: "{{ proftpd_config_file }}"
+
+- name: Define user "proftpd" and group "proftpd" as the owner of config directory
+  file:
+    path: "/etc/proftpd"
+    owner: "{{ proftpd_user }}"
+    group: "{{ proftpd_group }}"
+    recurse: yes
+
+- name: Define owner, group and right on proftpd config files
+  file:
+    path: "{{ item }}"
+    owner: "{{ proftpd_user }}"
+    group: "{{ proftpd_group }}"
+    mode: "0644"
+  with_items:
+    - "{{ proftpd_modules_config_file }}"
+    - "{{ proftpd_config_file }}"
+
+- name: Archive logs file with logrotate
+  include: proftpd_logrotate.yml
+
+- name: Copy banner for advanced secure configuration
+  copy:
+    src: banner.txt
+    dest: "{{ proftpd_banner_file }}"
+    mode: 0644
+    owner: "{{ proftpd_user }}"
+    group: "{{ proftpd_group }}"
+  when: proftpd_advanced_secure
+
+- name: Limit authorized user policy
+  include: proftpd_limit_user.yml
+  when: proftpd_limit_user
+
+
+- name: Add TLS/SSL configuration to proftpd
+  include: proftpd_tls.yml
+  when: proftpd_tls_enabled
+
+- name: Add Iptables rules for ProFTP
+  include: iptables.yml
+  when: proftpd_iptables_enabled
+
+- name: Restart ProFTP
+  command: echo "Restart ProFTP service"
+  notify:
+    - Restart ProFTP

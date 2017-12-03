@@ -1,0 +1,58 @@
+---
+# tasks file for proftp_ssl
+
+- name: Install openssl
+  apt:
+    pkg: openssl
+    state: present
+
+- name: Create ProFTP SSL configuration directory.
+  file:
+    path: "{{ proftpd_tls_config_dir }}"
+    state: directory
+    owner: "{{ proftpd_user }}"
+    group: "{{ proftpd_group }}"
+
+- name: Deploy SSL Certification Authority (CA) configuration file
+  template:
+    src: openssl.conf.j2
+    dest: "{{ proftpd_tls_config_file }}"
+
+- name: Copy script for certificat validity
+  copy:
+    src: check_cert_validity.sh
+    dest: "{{ proftpd_tls_config_dir }}/check_cert_validity.sh"
+    owner: root
+    group: root
+    mode: 0500
+
+- name: Check if TLS certificat file exists
+  stat:
+    path: "{{ proftpd_tls_cert_file }}"
+  register: proftpd_tls_cert
+
+- name: Check if X509 is already valid
+  shell: "{{ proftpd_tls_config_dir }}/check_cert_validity.sh {{ proftpd_tls_cert_file }}"
+  register: proftpd_tls_cert_valid
+  when: proftpd_tls_cert.stat.exists
+
+- name: Generate SSL files( Key & certificat).
+  command: >
+    openssl req -new
+      -x509
+      -nodes
+      -days 3650
+      -subj "{{ proftpd_tls_subj }}"
+      -config {{ proftpd_tls_config_file }}
+      -extensions v3_req
+      -out {{ proftpd_tls_cert_file }}
+      -keyout {{ proftpd_tls_key_file }}
+  when: (not proftpd_tls_cert.stat.exists) or (proftpd_tls_cert_valid is defined and proftpd_tls_cert_valid.rc|int != 0)
+
+- name: Define owner, group and right on proftp configuration files
+  file:
+    path: "{{ item.path }}"
+    owner: "{{ proftpd_user }}"
+    group: "{{ proftpd_group }}"
+    mode: "{{ item.mode }}"
+  with_items: "{{ proftpd_tls_files }}"

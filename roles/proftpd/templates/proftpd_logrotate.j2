@@ -1,0 +1,16 @@
+# https://doc.ubuntu-fr.org/logrotate
+
+{{ proftpd_transfert_log_file }}
+{{ proftpd_system_log_file }}
+{% if proftpd_tls_enabled %}
+{{ proftpd_tls_log_file }}
+{% endif %}
+{
+	daily
+	rotate 180
+	compress
+	delaycompress
+	missingok
+	notifempty
+	create 644 root root
+}
