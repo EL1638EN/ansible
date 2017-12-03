@@ -1,0 +1,14 @@
+---
+
+###################
+# Playbook to install role fail2ban
+###################
+- hosts: st-db-villeurbanne
+  become: yes
+  roles:
+    - role: fail2ban
+      tags: ['fail2ban']
+      fail2ban_iptables_enabled: False
+      fail2ban_goss_enabled: True
+      fail2ban_sshd_enabled: True
+      fail2ban_proftpd_enabled: True
