@@ -1,0 +1,10 @@
+---
+
+###################
+# Playbook to install role apache_private_ca
+###################
+- hosts: serverDebian
+  become: yes
+  roles:
+    - role: apache_private_ca
+      tags: ['apache_private_ca']
