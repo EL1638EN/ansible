@@ -1,0 +1,19 @@
+---
+
+###################
+# Playbook to install role monit
+###################
+- hosts: serverDebian
+  become: yes
+  roles:
+    - role: monit
+      monit_iptables_enabled: True
+      monit_admin_login: "EL1638EN"
+      monit_admin_password: "Mmdp-3325"
+      monit_goss_enabled: True
+      monit_postgres_enabled: True
+      # monit_proftp_enabled: True
+      monit_sshd_enabled: True
+      monit_admin_dashboard_enabled: True
+      monit_network_interface: "enp0s8"
+      tags: ['monit']
