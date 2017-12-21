@@ -21,6 +21,23 @@ tomcat_server_info_dir: "org/apache/catalina/util"
 tomcat_goss_enabled: False
 tomcat_iptables_enabled: False
 tomcat_network_interface: "eth0"
+tomcat_openssl_enabled: False
+tomcat_openssl_dir: "/etc/pki/tomcat/conf/ssl"
+tomcat_dns: localhost
+openssl_certificate_file: "{{ tomcat_openssl_dir }}/cacert_{{ tomcat_dns }}.crt"
+openssl_private_key_file: "{{ tomcat_openssl_dir }}/cacert_{{ tomcat_dns }}.key"
+openssl_cert_config_file: "{{ tomcat_openssl_dir }}/openssl.conf"
+openssl_cert_subjectAltName: "DNS:{{ tomcat_dns }}"
+openssl_cert_common_name: "{{ tomcat_dns }}"
+# TODO : Mot de passe à gerer avec Ansible Vault
+vault_ssl_cert_password: "password"
+ssl_protocol: TLSv1+TLSv1.1+TLSv1.2
+ssl_country: FR
+ssl_state: Rhone
+ssl_locality: Lyon
+ssl_organisation: Syscom
+ssl_organisation_unit: IT
+openssl_subj: "/C=\"{{ ssl_country }}\"/ST=\"{{ ssl_state }}\"/L=\"{{ ssl_locality }}\"/O=\"{{ ssl_organisation }}\"/OU=\"{{ ssl_organisation_unit }}\"/CN={{ openssl_cert_common_name }}"
 tomcat_required_packages:
  - "libapr1"
  - "libapr1-dev"

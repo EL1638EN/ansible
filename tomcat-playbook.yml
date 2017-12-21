@@ -9,5 +9,6 @@
     - role: tomcat
       tomcat_goss_enabled: True
       tomcat_iptables_enabled: True
+      tomcat_openssl_enabled: True
       tomcat_network_interface: "enp0s8"
       tags: ['tomcat']
