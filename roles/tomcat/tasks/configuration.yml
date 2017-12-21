@@ -1,0 +1,68 @@
+---
+# tasks file to configure tomcat
+
+- name: Stop eventual tomcat server running
+  service:
+    name: tomcat
+    state: stopped
+    enabled: no
+  ignore_errors: true
+
+- name: Create Group Tomcat
+  group:
+    name: "{{ tomcat_group }}"
+    state: present
+
+- name: Create User Tomcat
+  user:
+    name: "{{ tomcat_user }}"
+    createhome: no
+    group: "{{ tomcat_group }}"
+    shell: /bin/bash
+    state: present
+
+- name: Change the owner of tomcat versions directory
+  file:
+    path: "{{ tomcat_versions }}"
+    owner: "{{ tomcat_user }}"
+    group: "{{ tomcat_group }}"
+    recurse: yes
+
+- name: Change the owner of link to the last tomcat directory
+  file:
+    src: "{{ tomcat_last_version }}"
+    path: "{{ tomcat_home }}"
+    owner: "{{ tomcat_user }}"
+    group: "{{ tomcat_group }}"
+    state: link
+
+- name: Create the tomcat configuration directory
+  file:
+    path: "{{ tomcat_config_directory }}"
+    owner: "{{ tomcat_user }}"
+    group: "{{ tomcat_group }}"
+    state: directory
+    recurse: yes
+
+- name: Deploy configuration Tomcat files
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ tomcat_user }}"
+    group: "{{ tomcat_group }}"
+    mode: "{{ item.mode }}"
+  with_items:
+   - "{{ tomcat_config_files }}"
+
+- name: Copy Tomcat init script
+  template:
+    src: "tomcat.sh.j2"
+    dest: "{{ tomcat_init_script }}"
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Enable Tomcat service
+  service:
+    name: tomcat
+    enabled: yes

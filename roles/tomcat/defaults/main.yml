@@ -1,0 +1,45 @@
+---
+# defaults file for tomcat
+
+tomcat_version: 8.5.24
+tomcat_java_home: "/usr/lib/jvm/default-java"
+tomcat_url: "http://192.168.0.11:8081/nexus/content/repositories/releases/tomcat/{{ tomcat_version }}/apache-tomcat-{{ tomcat_version }}.tar.gz"
+tomcat_tcnative_url: "http://192.168.0.11:8081/nexus/content/repositories/releases/tomcat/{{ tomcat_version }}/tcnative.tar.gz"
+tomcat_versions: "/opt/tomcat_versions"
+tomcat_last_version: "{{ tomcat_versions }}/apache-tomcat-{{ tomcat_version }}"
+tomcat_home: "/opt/tomcat"
+tomcat_http_port: 8080
+tomcat_https_port: 8443
+tomcat_shutdown_port: 8005
+tomcat_mod_jk_port: 8009
+tomcat_shutdown_command: "SHUTDOWNA1B2Z78UJHGJKLMLM"
+tomcat_init_script: /etc/init.d/tomcat
+tomcat_user: tomcat
+tomcat_group: tomcat
+tomcat_config_directory: "{{ tomcat_last_version }}/conf"
+tomcat_server_info_dir: "org/apache/catalina/util"
+tomcat_goss_enabled: False
+tomcat_iptables_enabled: False
+tomcat_network_interface: "eth0"
+tomcat_required_packages:
+ - "libapr1"
+ - "libapr1-dev"
+ - "libaprutil1"
+ - "libaprutil1-dev"
+ - "libssl-dev"
+
+tomcat_config_files:
+ - { src: "server.xml.j2", dest: "{{ tomcat_config_directory }}/server.xml", mode: "0600" }
+ - { src: "setenv.sh.j2", dest: "{{ tomcat_last_version }}/bin/setenv.sh", mode: "0750" }
+ - { src: "web.xml.j2", dest: "{{ tomcat_config_directory }}/web.xml", mode: "0600" }
+ - { src: "logging.properties.j2", dest: "{{ tomcat_config_directory }}/logging.properties", mode: "0600" }
+
+tomcat_remove_files:
+ - "webapps/ROOT/"
+ # - "webapps/examples/"
+ - "webapps/host-manager/"
+ - "webapps/manager/"
+ - "conf/tomcat-users.xml"
+ - "conf/tomcat-users.xsd"
+ # - "webapps/docs/"
+ 
