@@ -26,7 +26,7 @@
   -->
 
   <!--APR library loader. Documentation at /docs/apr.html -->
-  {% if tomcat_openssl_enabled %}
+  {% if tomcat_openssl_enabled or tomcat_keystore_enabled %}
       <Listener className="org.apache.catalina.core.AprLifecycleListener" SSLEngine="on" SSLRandomSeed="builtin" />
   {% else %}
        <Listener className="org.apache.catalina.core.AprLifecycleListener" SSLEngine="off" />
@@ -90,7 +90,17 @@
            SSLCertificateKeyFile="{{ openssl_private_key_file }}"
            SSLVerifyClient="optional" SSLProtocol="{{ ssl_protocol }}"
      SSLPassword="tomcat"/>
-    
+    {% endif %}
+
+    {% if tomcat_keystore_enabled %}
+    <Connector
+           protocol="org.apache.coyote.http11.Http11NioProtocol"
+           port="{{ tomcat_https_port }}" maxThreads="200"
+           scheme="https" secure="true" SSLEnabled="true"
+           keystoreFile="{{ tomcat_keystore_file }}"
+           keystorePass="{{ tomcat_keystore_password }}"
+           keyAlias="{{ tomcat_keystore_alias }}" 
+           SSLProtocol="{{ ssl_protocol }}"/>
     {% endif %}
     
     <!-- Define an AJP 1.3 Connector on port 8009 -->

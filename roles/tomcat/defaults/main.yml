@@ -21,6 +21,16 @@ tomcat_server_info_dir: "org/apache/catalina/util"
 tomcat_goss_enabled: False
 tomcat_iptables_enabled: False
 tomcat_network_interface: "eth0"
+
+# Donnees pour effectuer du chiffrement SSL
+ssl_protocol: TLSv1+TLSv1.1+TLSv1.2
+ssl_country: FR
+ssl_state: Rhone
+ssl_locality: Lyon
+ssl_organisation: Syscom
+ssl_organisation_unit: IT
+
+# Utilisation d'openssl pour chiffer Tomcat
 tomcat_openssl_enabled: False
 tomcat_openssl_dir: "/etc/pki/tomcat/conf/ssl"
 tomcat_dns: localhost
@@ -31,13 +41,17 @@ openssl_cert_subjectAltName: "DNS:{{ tomcat_dns }}"
 openssl_cert_common_name: "{{ tomcat_dns }}"
 # TODO : Mot de passe à gerer avec Ansible Vault
 vault_ssl_cert_password: "password"
-ssl_protocol: TLSv1+TLSv1.1+TLSv1.2
-ssl_country: FR
-ssl_state: Rhone
-ssl_locality: Lyon
-ssl_organisation: Syscom
-ssl_organisation_unit: IT
 openssl_subj: "/C=\"{{ ssl_country }}\"/ST=\"{{ ssl_state }}\"/L=\"{{ ssl_locality }}\"/O=\"{{ ssl_organisation }}\"/OU=\"{{ ssl_organisation_unit }}\"/CN={{ openssl_cert_common_name }}"
+
+# Utilisation de keytool pour chiffrer Tomcat
+tomcat_keystore_enabled: False
+tomcat_keystore_dir: "/etc/pki/tomcat/conf/keystore"
+tomcat_keystore_file: "{{ tomcat_keystore_dir }}/keystore.jks"
+tomcat_keystore_alias: keyAlias
+# TODO : Mot de passe à gerer avec Ansible Vault
+tomcat_keystore_password: "password"
+tomcat_keystore_subj: "CN={{ tomcat_dns }}, OU={{ ssl_organisation_unit }}, O={{ ssl_organisation }}, L={{ ssl_locality }}, S={{ ssl_state }}, C={{ ssl_country }}"
+
 tomcat_required_packages:
  - "libapr1"
  - "libapr1-dev"

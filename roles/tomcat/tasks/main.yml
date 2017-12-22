@@ -14,9 +14,13 @@
 # Apply OWASP rule to secure Tomcat
 - include: owasp.yml
 
-# Apply OWASP rule to secure Tomcat
-- include: ssl.yml
+# Openssl with Tomcat
+- include: openssl.yml
   when: tomcat_openssl_enabled
+
+# SSL with keytool
+- include: keytool.yml
+  when: tomcat_keystore_enabled
 
 - include: iptables.yml
   when: tomcat_iptables_enabled

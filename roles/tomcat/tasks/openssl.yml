@@ -1,5 +1,5 @@
 ---
-# tasks file for ssl - tomcat
+# tasks file for opensslssl - tomcat
 
 - name: Installing openssl
   apt:

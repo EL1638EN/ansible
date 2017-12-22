@@ -4689,7 +4689,7 @@
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
     
-    {% if tomcat_openssl_enabled %}
+    {% if tomcat_openssl_enabled or tomcat_keystore_enabled %}
     <security-constraint>
       <web-resource-collection>
           <web-resource-name>securedapp</web-resource-name>
