@@ -15,11 +15,10 @@ Role Variables
 | ------------- |:-------------:| ----------:|
 |apache_private_ca_user|root|Owner of the Apache's directories|
 |apache_private_ca_user_group|sys|Owner's group|
-|apache_home|/opt/apache2|Installation directory for the current version of Apache|
 |apache_private_ca_md|sha256||
-|apache_private_ca_dir|/opt/apache2/private_ca|Directory of private authority|
-|apache_private_ca_key|/opt/apache2/private_ca/ca_key.pem|Private key of authority|
-|apache_private_ca_cert|/opt/apache2/private_ca/ca_cert.pem|Public certifcat of authority|
+|apache_private_ca_dir|/etc/pki/apache/private_ca|Directory of private authority|
+|apache_private_ca_key|/etc/pki/apache/private_ca/ca_key.pem|Private key of authority|
+|apache_private_ca_cert|/etc/pki/apache/private_ca/ca_cert.pem|Public certifcat of authority|
 |apache_private_ca_bits|2048|certifcat file is generated on 2048 bits|
 |apache_private_ca_default_days|3650 days (10 years)|Days of expiration|
 |apache_private_ca_country|FR|Country of code certificat authority|
