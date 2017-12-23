@@ -5,7 +5,7 @@ apache_version: 2.4.29
 apache_versions: /opt/apache_versions
 apache_home: /opt/apache2
 apache_last_version: "{{ apache_versions }}/httpd-{{ apache_version }}"
-apache_url: "http://192.168.0.11:9081/nexus/content/repositories/releases/httpd-{{apache_version}}.tar.gz"
+apache_url: "http://192.168.0.11:8081/nexus/content/repositories/releases/httpd/{{ apache_version }}/httpd-{{apache_version}}.tar.gz"
 apache_http_default_port: 80
 apache_https_default_port: 443
 apache_logs_dir: "/var/log/apache2"
@@ -27,7 +27,7 @@ apache_keep_alive_timeout: 15
 
 # Mod Security variables
 apache_mod_security_version: 2.9.1
-apache_mod_security_url : "http://192.168.0.11:9081/nexus/content/repositories/releases/mod_security/{{ apache_mod_security_version }}/mod_security.tar.gz"
+apache_mod_security_url : "http://192.168.0.11:8081/nexus/content/repositories/releases/mod_security/{{ apache_mod_security_version }}/mod_security.tar.gz"
 apache_mod_security_logs_dir: "{{ apache_logs_dir }}/modsecurity"
 apache_mod_security_conf_dir: "{{ apache_conf_dir }}/modsecurity"
 apache_mod_security_conf_files:
@@ -51,7 +51,7 @@ apache_status_authentication_passowrd: "Mmdp-3325"
 
 # Mod JK
 mod_jk_version: 1.2.41
-mod_jk_url: "http://192.168.0.11:9081/nexus/content/repositories/releases/mod_jk/{{ mod_jk_version }}/mod_jk.tar.gz"
+mod_jk_url: "http://192.168.0.11:8081/nexus/content/repositories/releases/mod_jk/{{ mod_jk_version }}/mod_jk.tar.gz"
 
 
 apache_iptables_enabled: False

@@ -2,7 +2,7 @@
 # defaults file for apache_private_ca
 
 apache_private_ca_user: root
-apache_private_ca_user_group: root
+apache_private_ca_user_group: sys
 apache_private_ca_bits: 2048
 apache_private_ca_md: sha256
 apache_private_ca_dir: "/etc/pki/apache/private_ca"
