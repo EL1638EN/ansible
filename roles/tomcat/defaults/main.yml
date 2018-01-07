@@ -68,10 +68,10 @@ tomcat_config_files:
 
 tomcat_remove_files:
  - "webapps/ROOT/"
- # - "webapps/examples/"
+ - "webapps/examples/"
  - "webapps/host-manager/"
  - "webapps/manager/"
  - "conf/tomcat-users.xml"
  - "conf/tomcat-users.xsd"
- # - "webapps/docs/"
+ - "webapps/docs/"
  
