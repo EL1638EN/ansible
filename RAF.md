@@ -11,3 +11,5 @@ Les rôles impactés seraient : Apache, Tomcat, SonarQube, Nexus, postgres_insta
  - Proftpd
  - etc..
  Il faut refaire ces docs d'installation améliorés avec Gitbook
+
+ 5°) Faire la configuration Apache Mod Proxy pour les serveurs Nexus et SonarQube
