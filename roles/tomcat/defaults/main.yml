@@ -21,7 +21,8 @@ tomcat_server_info_dir: "org/apache/catalina/util"
 tomcat_goss_enabled: False
 tomcat_iptables_enabled: False
 tomcat_network_interface: "eth0"
-
+tomcat_load_balancing_enabled: False
+tomcat_jvm_name:
 # Donnees pour effectuer du chiffrement SSL
 ssl_protocol: TLSv1+TLSv1.1+TLSv1.2
 ssl_country: FR
