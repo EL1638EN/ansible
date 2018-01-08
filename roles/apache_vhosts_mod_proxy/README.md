@@ -1,7 +1,7 @@
 Role Name
 =========
 
-A brief description of the role goes here.
+Utilisation d'Apache en mode reverse proxy avec un conteneur d'application (Tomcat par exemple) en arrière plan
 
 Requirements
 ------------

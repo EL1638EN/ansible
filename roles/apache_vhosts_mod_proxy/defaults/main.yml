@@ -6,7 +6,7 @@ https_default_port: 443
 apache_home: /opt/apache2
 apache_server_admin: admin@example.com
 apache_vhosts_dir: "{{ apache_home }}/vhosts"
-apache_logs_dir: "/var/log/apache2/logs"
+apache_logs_dir: "/var/log/apache2"
 apache_conf_dir: "{{ apache_home }}/conf"
 apache_ssl_dir: "/etc/pki/apache"
 apache_ssl_ca_dir: "{{ apache_ssl_dir }}/private_ca"
