@@ -6,7 +6,7 @@ https_default_port: 443
 apache_home: /opt/apache2
 java_home: /usr/bin/java
 apache_vhosts_dir: "{{ apache_home }}/vhosts"
-apache_logs_dir: "/var/log/apache2/logs"
+apache_logs_dir: "/var/log/apache2"
 apache_conf_dir: "{{ apache_home }}/conf"
 apache_httpd_file: "{{ apache_conf_dir }}/httpd.conf"
 apache_ssl_dir: "/etc/pki/apache"
