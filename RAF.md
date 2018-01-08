@@ -13,3 +13,8 @@ Les rôles impactés seraient : Apache, Tomcat, SonarQube, Nexus, postgres_insta
  Il faut refaire ces docs d'installation améliorés avec Gitbook
 
  5°) Faire la configuration Apache Mod Proxy pour les serveurs Nexus et SonarQube
+
+ 6°) Faire la configuration Apache Mod rewrite pour les serveurs Nexus et SonarQube
+
+ 7°) Reprendre l'installation D'apache avec la commande "apt install etc.."
+     - Pour cette méthode, reprendre l'instalation et la configuration complète avec tous les modules
