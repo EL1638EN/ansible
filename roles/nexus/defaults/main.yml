@@ -15,3 +15,7 @@ nexus_iptables_enabled: False
 nexus_files : 
     - { src: "nexus.properties.j2", dest: "{{ nexus_home }}/conf/nexus.properties" }
     - { src: "nexus.sh.j2", dest: "{{ nexus_home }}/bin/nexus" }
+
+nexus_reverse_proxy_enabled: False
+nexus_reverse_proxy_http_default_port: 80
+nexus_reverse_proxy_server_name:

@@ -1,0 +1,12 @@
+<VirtualHost *:{{ nexus_reverse_proxy_http_default_port }}>
+	ServerName {{ nexus_reverse_proxy_server_name }}
+
+	RewriteEngine On
+    RewriteLogLevel 1
+    RewriteLog "|bin/rotatelogs /var/log/apache2/rewrite_nexus_%Y%m%d.log 86400"
+    
+    RewriteRule ^/$ http://{{ nexus_host }}:{{ nexus_port }}/nexus/ [P]
+    RewriteRule ^/(.*)$ http://{{ nexus_host }}:{{ nexus_port }}/nexus/$1 [P]
+    ProxyPassReverse / http://{{ nexus_host }}:{{ nexus_port }}/
+    
+</VirtualHost>
