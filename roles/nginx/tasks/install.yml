@@ -1,0 +1,13 @@
+---
+# tasks file to install nginx
+
+- name: Install nginx package
+  apt:
+    pkg: "nginx"
+    state: present
+
+- name: Install nginx mod security module
+  apt:
+    pkg: "nginx-plus-module-modsecurity"
+    state: present
+  when: nginx_mod_security_enabled

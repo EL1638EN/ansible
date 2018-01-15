@@ -1,0 +1,17 @@
+---
+# tasks file to backup nginx config file
+
+- name : Check nginx backup file exists
+  stat:
+    path: "{{ nginx_config_file }}.backup"
+  register: config_backup_file
+
+- name : Create nginx backup file
+  copy:
+    src: "{{ nginx_config_file }}"
+    dest: "{{ nginx_config_file }}.backup"
+    owner: root
+    group: root
+    mode: 0644
+    remote_src: yes
+  when: not config_backup_file.stat.exists

@@ -1,0 +1,8 @@
+---
+# defaults file for nginx
+
+nginx_config_dir: "/etc/nginx"
+nginx_config_file: "{{ nginx_config_dir }}/nginx.conf"
+nginx_mod_security_enabled: False
+nginx_config_directives : 
+    - { regexp: "^server_tokens", value: "server_tokens off" }

@@ -1,0 +1,23 @@
+---
+# tasks file to config nginx
+
+- name: Change the configuration of nginx
+  lineinfile:
+    dest: "{{ nginx_config_file }}"
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.value }}"
+    owner: root
+    group: root
+    mode: 0644
+    state: present
+  with_items: "{{ nginx_config_directives }}"
+  
+- name: Add mod security module to the configuration of nginx
+  lineinfile:
+    dest: "{{ nginx_config_file }}"
+    line: "load_module modules/ngx_http_modsecurity_module.so;"
+    owner: root
+    group: root
+    mode: 0644
+    state: present
+  when: nginx_mod_security_enabled
