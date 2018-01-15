@@ -1,0 +1,15 @@
+---
+# tasks file for apache2
+
+- include: install.yml
+
+- include: backup.yml
+
+- include: config.yml
+
+- include: status.yml
+
+- name: Restart apache2
+  command: echo "Restart apache2"
+  notify:
+    - Restart apache2
