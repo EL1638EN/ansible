@@ -1,7 +1,7 @@
 ---
 # handlers file for nexus
 
-- name: Restart apache
-  service:
+- name: Restart apache2
+  systemd:
     name: apache2
     state: restarted
