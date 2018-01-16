@@ -22,6 +22,9 @@ apache2_mods_disabled: []
 apache2_mods_enabled:
   - rewrite.load
   - ssl.load
+  - proxy.conf
+  - proxy.load
+  - proxy_http.load  
 
 apache2_config_params:
     - { regexp: "^ServerTokens", value: "ServerTokens Prod" }
