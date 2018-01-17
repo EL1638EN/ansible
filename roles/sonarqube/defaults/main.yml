@@ -17,5 +17,9 @@ sonarqube_postgres_config :
     - { regexp: "^#sonar.jdbc.password=", value: "sonar.jdbc.password={{ sonarqube_postgres_password }}" }
     - { regexp: "^#sonar.jdbc.url=", value: "sonar.jdbc.url={{ sonarqube_postgres_jdbc_url }}" }
 sonarqube_web_port: 9000
+sonarqube_host: 192.168.1.21
 sonarqube_iptables_enabled: False
 sonarqube_network_interface: 'eth0'
+sonarqube_reverse_proxy_enabled: False
+sonarqube_reverse_proxy_http_default_port: 80
+sonarqube_reverse_proxy_server_name:

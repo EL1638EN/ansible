@@ -59,3 +59,13 @@
   command: echo "Restart SonarQube service"
   notify:
     - Restart SonarQube
+
+- name: Add reverse proxy configuration
+  include: reverse_proxy.yml
+  when: sonarqube_reverse_proxy_enabled
+
+- name: Restart apache2
+  command: echo "Restart apache2"
+  notify:
+    - Restart apache2
+  when: sonarqube_reverse_proxy_enabled

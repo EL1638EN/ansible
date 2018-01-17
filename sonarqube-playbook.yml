@@ -8,4 +8,8 @@
   roles:
     - role: sonarqube
       sonarqube_postgres_database_enabled: True
+      sonarqube_reverse_proxy_enabled: True
+      sonarqube_host: 192.168.56.2
+      sonarqube_reverse_proxy_http_default_port: 80
+      sonarqube_reverse_proxy_server_name: "sonar.syscom.com"
       tags: ['sonarqube']
