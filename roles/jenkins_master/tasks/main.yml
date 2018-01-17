@@ -14,3 +14,13 @@
   command: echo "Restart Jenkins"
   notify:
     - Restart Jenkins
+
+- name: Add reverse proxy configuration
+  include: reverse_proxy.yml
+  when: jenkins_reverse_proxy_enabled
+
+- name: Restart apache2
+  command: echo "Restart apache2"
+  notify:
+    - Restart apache2
+  when: jenkins_reverse_proxy_enabled

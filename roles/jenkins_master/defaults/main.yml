@@ -5,6 +5,7 @@ jenkins_repository_list: "deb https://pkg.jenkins.io/debian-stable binary/"
 jenkins_config_file: "/etc/default/jenkins"
 jenkins_home: "/var/lib/jenkins"
 jenkins_initial_admin_password_file: "{{ jenkins_home }}/secrets/initialAdminPassword"
+jenkins_host: 192.168.1.21
 jenkins_port: 8081
 jenkins_network_interface: "eth0"
 jenkins_iptables_enabled: False
@@ -141,3 +142,7 @@ jenkins_plugins:
     - { name: workflow-support, version: '2.16' }
     - { name: ws-cleanup, version: '0.34' }
     - { name: xunit, version: '1.102' }
+
+jenkins_reverse_proxy_enabled: False
+jenkins_reverse_proxy_http_default_port: 80
+jenkins_reverse_proxy_server_name:

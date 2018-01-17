@@ -9,4 +9,7 @@
     - role: jenkins_master
       jenkins_network_interface: "enp0s8"
       jenkins_iptables_enabled: True
+      jenkins_reverse_proxy_enabled: True
+      jenkins_reverse_proxy_http_default_port: 80
+      jenkins_reverse_proxy_server_name: "jenkins.syscom.com"
       tags: ['jekins']
