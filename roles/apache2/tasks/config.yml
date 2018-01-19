@@ -1,6 +1,11 @@
 ---
 # tasks file to configure apache2
 
+- name: Delete default index.html.
+  file:
+    path: "/var/www/html/index.html"
+    state: absent
+
 - name: Change the config of apache2
   lineinfile:
     dest: "{{ apache2_config_file }}"

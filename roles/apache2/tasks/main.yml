@@ -7,6 +7,8 @@
 
 - include: config.yml
 
+- include: modsecurity.yml
+
 - include: status.yml
 
 - name: Restart apache2

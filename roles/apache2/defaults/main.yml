@@ -7,6 +7,14 @@ apache2_site_available: "{{ apache2_config_dir }}/sites-available"
 apache2_mods_available_dir: "{{ apache2_config_dir }}/mods-available"
 apache2_mods_enabled_dir: "{{ apache2_config_dir }}/mods-enabled"
 
+# Apache2 modsecurity 
+apache2_mod_security_base_dir: "/etc/modsecurity"
+apache2_mod_security_config : 
+    - { regexp: "^SecRuleEngine", value: "SecRuleEngine On" }
+    - { regexp: "^SecRequestBodyAccess", value: "SecRequestBodyAccess On" }
+    - { regexp: "^SecAuditEngine", value: "SecAuditEngine RelevantOnly" }
+    - { regexp: "^SecDebugLogLevel", value: "SecDebugLogLevel 1" }
+   
 # Apache server status module
 apache2_status_dir: "/var/www/status"
 apache2_status_server_name: ""
