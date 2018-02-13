@@ -2,5 +2,4 @@
 # handlers file for openjdk8
 
 - name: Relaod environments variables
-  command: >
-    . /etc/environment
+  shell: . /etc/environment
