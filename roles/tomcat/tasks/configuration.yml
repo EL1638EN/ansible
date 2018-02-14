@@ -2,7 +2,7 @@
 # tasks file to configure tomcat
 
 - name: Stop eventual tomcat server running
-  service:
+  systemd:
     name: tomcat
     state: stopped
     enabled: no
@@ -18,7 +18,7 @@
     name: "{{ tomcat_user }}"
     createhome: no
     group: "{{ tomcat_group }}"
-    shell: /bin/bash
+    shell: /bin/false
     state: present
 
 - name: Change the owner of tomcat versions directory
@@ -39,30 +39,28 @@
 - name: Create the tomcat configuration directory
   file:
     path: "{{ tomcat_config_directory }}"
+    state: directory
     owner: "{{ tomcat_user }}"
     group: "{{ tomcat_group }}"
-    state: directory
     recurse: yes
 
 - name: Deploy configuration Tomcat files
   template:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
+    mode: "{{ item.mode }}"
     owner: "{{ tomcat_user }}"
     group: "{{ tomcat_group }}"
-    mode: "{{ item.mode }}"
-  with_items:
+    with_items:
    - "{{ tomcat_config_files }}"
 
-- name: Copy Tomcat init script
+- name: Copy Tomcat systemd script
   template:
-    src: "tomcat.sh.j2"
-    dest: "{{ tomcat_init_script }}"
+    src: "tomcat.service.j2"
+    dest: "/etc/systemd/system/tomcat.service"
     owner: root
     group: root
-    mode: 0755
-
-- name: Enable Tomcat service
-  service:
-    name: tomcat
-    enabled: yes
+    mode: 0644
+    notify:
+    - Reload systemd
+    - Enable Tomcat service
