@@ -1,0 +1,49 @@
+---
+# tasks file for pgbackrest
+
+# http://www.pgbackrest.org/user-guide.html#installation
+
+- name: Remove old version of pgbackrest
+  file:
+    path: "{{ item }}"
+    state: absent
+  with_items: "{{ pgbackrest_old_version_file }}"
+  ignore_errors: true
+
+- name: Install required libraries
+  apt:
+    pkg: "{{ item }}"
+    state: present
+  with_items: "{{ pgbackrest_required_library }}"
+
+- name: Download pgbackrest archive
+  unarchive:
+    src: "{{ pgbackrest_download_archive_url }}"
+    dest: "/opt/"
+    remote_src: True
+
+- name: Copy pgbackrest directory into perl5 directory
+  copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+  with_items: "{{ pgbackrest_files }}"
+
+- name: Set file mode
+  shell: find /usr/share/perl5/pgBackRest -type f -exec chmod 644 {} +
+  
+- name: Set directory mode
+  shell: find /usr/share/perl5/pgBackRest -type d -exec chmod 755 {} +
+
+- name: Set mode for pgbackrest command
+  file:
+    path: /usr/bin/pgbackrest
+    mode: 0755
+    recurse: yes
+
+- name: Create log directory for pgbackrest
+  file:
+    path: /var/log/pgbackrest
+    mode: 0770
+    recurse: yes
+    owner: postgres
+    group: postgres
