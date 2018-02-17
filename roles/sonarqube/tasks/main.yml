@@ -9,3 +9,17 @@
 - name : include install file
   include: install.yml
   when: not sonarqube_home_result.stat.exists
+
+- name: Add Iptables rules for SonarQube
+  include: iptables.yml
+  when: sonarqube_iptables_enabled
+
+- name: Add reverse proxy configuration
+  include: reverse_proxy.yml
+  when: sonarqube_reverse_proxy_enabled
+
+- name: Restart apache2
+  command: echo "Restart apache2"
+  notify:
+    - Restart apache2
+  when: sonarqube_reverse_proxy_enabled
