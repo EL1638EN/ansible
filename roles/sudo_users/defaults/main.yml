@@ -1,0 +1,9 @@
+---
+# defaults file for sudo_users
+
+user_name:
+user_password:
+user_comment:
+user_public_ssh_key:
+user_ssh_key_passphrase:
+user_remove:
