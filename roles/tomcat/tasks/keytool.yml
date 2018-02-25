@@ -27,6 +27,7 @@
       -keystore {{ tomcat_keystore_file }}
       -storepass {{ tomcat_keystore_password }}
       -validity 3650
+  no_log: True
   when: not tomcat_keystore_file_status.stat.exists
 
 - name: Change owner of keystore file
