@@ -19,4 +19,3 @@
       user_name: "user_test"
       user_password: "password"
       user_public_ssh_key: "{{ hostvars['localhost']['user_public_key']['stdout'] }}"
-      user_remove: "user_test"
