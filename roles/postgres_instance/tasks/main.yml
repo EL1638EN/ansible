@@ -13,6 +13,7 @@
     role_attr_flags: "{{ item.db_user_roles }}"
     state: present
   with_items: "{{ postgres_instance_dbs }}"
+  no_log: True
 
 - name: Create database
   postgresql_db:
@@ -20,6 +21,7 @@
     owner: "{{ item.db_user }}"
     state: present
   with_items: "{{ postgres_instance_dbs }}"
+  no_log: True
 
 - name: Create schema
   postgresql_schema:
@@ -28,6 +30,7 @@
     owner: "{{ item.db_user }}"
     state: present
   with_items: "{{ postgres_instance_dbs }}"
+  no_log: True
 
 - name: Restart PostgreSQL
   command: echo "Restart PostgreSQL"
