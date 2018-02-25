@@ -12,6 +12,7 @@
     ssh_key_bits: 2048
     ssh_key_type: rsa
     ssh_key_passphrase: "{{ user_ssh_key_passphrase }}"
+  no_log: True
 
 - name: Add public key to users's authorized keys
   lineinfile:

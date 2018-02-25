@@ -5,10 +5,12 @@
   tasks:
   - name: Create user on local machine (Ansible host machine)
     local_action: user name=user_test comment="user_test" shell=/bin/bash generate_ssh_key=yes ssh_key_bits=2048 ssh_key_passphrase=
+    no_log: True
 
   - name: Retrieve public key
     local_action: shell cat /home/user_test/.ssh/id_rsa.pub
     register: user_public_key
+    no_log: True
 
 - hosts: vm-debian-1
   become: yes
