@@ -12,6 +12,7 @@
     group: "{{ nexus_group }}"
     password: "{{ nexus_user_password }}"
     shell: "/bin/bash"
+  no_log: True
 
 - name: Download, decompress and delete Nexus archive
   unarchive:

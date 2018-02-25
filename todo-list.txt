@@ -1,3 +1,6 @@
+==== Liste des rôles à ameliorer =====
+- pgbackrest
+
 
 1°) Gérer tous les mots de passe avec Ansible-Vault.
 Les rôles impactés seraient : Apache, Tomcat, SonarQube, Nexus, postgres_instance, monit
@@ -11,6 +14,3 @@ Les rôles impactés seraient : Apache, Tomcat, SonarQube, Nexus, postgres_insta
  - Proftpd
  - etc..
  Il faut refaire ces docs d'installation améliorés avec Gitbook
-
- 7°) Reprendre l'installation D'apache avec la commande "apt install etc.."
-     - Pour cette méthode, reprendre l'instalation et la configuration complète avec tous les modules
