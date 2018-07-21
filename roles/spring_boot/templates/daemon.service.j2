@@ -1,0 +1,10 @@
+[Unit]
+Description={{ spring_boot_service_name }}
+After={{ spring_boot_service_after }}
+
+[Service]
+User={{ spring_boot_user }}
+ExecStart={{ spring_boot_service_start_script }}
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,57 @@
+# To get all properties for Spring boot, look at here : https://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
+
+# Port HTTP du serveur
+server.port={{ spring_boot_http_port }}
+
+# Paramètre de la base de données
+spring.jpa.database={{ spring_boot_database }}
+spring.datasource.platform={{ spring_boot_datasource_patform }}
+spring.jpa.show-sql={{ spring_boot_show_sql }}
+spring.database.driverClassName={{ spring_boot_database_driverClassName }}
+spring.datasource.url={{ springboot_datasource_url }}
+# TODO : Les paramètres ci-dessous seront passés en paramètres Vault
+spring.datasource.username={{ spring_boot_datasource_username }}
+spring.datasource.password={{ spring_boot_datasource_password }}
+
+# Logging
+logging.level.org.springframework.web=INFO
+logging.level.org.hibernate=WARN
+logging.level.com.syscom=WARN
+# Logging pattern for the console
+logging.pattern.console= "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+# Logging pattern for file
+logging.pattern.file= "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+#output to a log file
+logging.file={{ spring_boot_logs_file }}
+
+#Paramètres du serveur de mail
+spring.mail.host={{ spring_boot_mail_host }}
+spring.mail.port={{ spring_boot_mail_port }}
+
+{% if spring_boot_mail_username != None %}
+spring.mail.username={{ spring_boot_mail_username }}
+{% endif %}
+
+{% if spring_boot_mail_password != None %}
+spring.mail.password={{ spring_boot_mail_password }}
+{% endif %}
+
+{% if spring_boot_mail_properties_mail_smtp_auth != None %}
+spring.mail.properties.mail.smtp.auth={{ spring_boot_mail_properties_mail_smtp_auth }}
+{% endif %}
+
+{% if spring_boot_mail_properties_mail_smtp_starttls_enable != None %}
+spring.mail.properties.mail.smtp.starttls.enable={{ spring_boot_mail_properties_mail_smtp_starttls_enable }}
+{% endif %}
+
+# Configuration pour les fichiers logs d'accès au serveur
+server.tomcat.accesslog.buffered=true
+server.tomcat.accesslog.directory={{ spring_boot_logs_directory }}
+server.tomcat.accesslog.enabled=true
+server.tomcat.accesslog.file-date-format=.yyyy-MM-dd
+server.tomcat.accesslog.pattern=common
+server.tomcat.accesslog.prefix=localhost_access_log
+server.tomcat.accesslog.rename-on-rotate=false
+server.tomcat.accesslog.request-attributes-enabled=false
+server.tomcat.accesslog.rotate=true
+server.tomcat.accesslog.suffix=.log

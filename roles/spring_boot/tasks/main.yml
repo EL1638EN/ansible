@@ -1,0 +1,85 @@
+---
+# tasks file for spring_boot
+
+- name: Stop eventual Spring Boot process running
+  service:
+    name: "{{ spring_boot_service_name }}"
+    state: stopped
+    enabled: no
+  ignore_errors: true
+
+- name: Create Group for Spring Boot
+  group:
+    name: "{{ spring_boot_group }}"
+    state: present
+
+- name: Create User for Spring Boot
+  user:
+    name: "{{ spring_boot_user }}"
+    createhome: no
+    group: "{{ spring_boot_group }}"
+    shell: /sbin/nologin
+    system: yes
+    state: present
+
+- name: Create Spring Boot directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ spring_boot_user }}"
+    group: "{{ spring_boot_group }}"
+    recurse: yes
+  with_items:
+    - "{{ spring_boot_main_directory }}"
+    - "{{ spring_boot_jar_directory }}"
+    - "{{ spring_boot_conf_directory }}"
+    - "{{ spring_boot_logs_directory }}"
+
+- name: Copy Spring Boot application configuration files
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "{{ spring_boot_user }}"
+    group: "{{ spring_boot_group }}"
+    mode: 0640
+  with_items: "{{ spring_boot_conf_files }}"
+
+- name: Download Spring Boot application jar
+  get_url:
+    url: "{{ spring_boot_nexus_url }}?r={{ spring_boot_repository }}&g={{ spring_boot_groupid }}&a={{ spring_boot_artifactid }}&v={{ spring_boot_version }}&p={{ spring_boot_package }}"
+    dest: "{{ spring_boot_main_directory }}/{{ spring_boot_jar_dest_filename }}"
+    owner: "{{ spring_boot_user }}"
+    group: "{{ spring_boot_group }}"
+    mode: 0755
+
+- name: copy run script
+  template:
+    src: run-app.sh.j2
+    dest: "{{ spring_boot_service_start_script }}"
+    owner: "{{ spring_boot_user }}"
+    group: "{{ spring_boot_group }}"
+    mode: 0700
+
+- name: install systemd service
+  template:
+     src: daemon.service.j2
+     dest: "/etc/systemd/system/{{ spring_boot_service_name }}.service"
+     mode: 0644
+
+- name: Add Iptables rule
+  include: iptables.yml
+  when: spring_boot_iptables_enabled
+
+- name: Reload systemd
+  systemd:
+    daemon-reload: yes
+
+- name: Enable Spring Boot service
+  systemd:
+    name: "{{ spring_boot_service_name }}"
+    enabled: yes
+
+- name: Start Spring Boot service
+  systemd:
+    name: "{{ spring_boot_service_name }}"
+    state: restarted

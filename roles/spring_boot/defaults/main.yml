@@ -1,0 +1,46 @@
+---
+# defaults file for spring_boot
+spring_boot_user: springboot
+spring_boot_group: springboot
+spring_boot_main_directory: /opt/springboot
+spring_boot_conf_directory: "{{ spring_boot_main_directory }}/conf"
+spring_boot_jar_directory: "{{ spring_boot_main_directory }}/jar"
+spring_boot_logs_directory: "{{ spring_boot_main_directory }}/logs"
+spring_boot_nexus_url: ""
+spring_boot_repository: ""
+spring_boot_groupid: ""
+spring_boot_artifactid: ""
+spring_boot_version: ""
+spring_boot_package: "jar"
+spring_boot_service_name: "{{ spring_boot_repository}}-{{ spring_boot_artifactid }}"
+spring_boot_jar_dest_filename: "{{ spring_boot_repository}}-{{ spring_boot_artifactid }}-{{ spring_boot_version }}.jar"
+spring_boot_service_after: syslog.target network.target
+spring_boot_service_start_script: "{{ spring_boot_main_directory }}/run-app.sh"
+spring_boot_jar_args:
+spring_boot_jvm_args:
+spring_boot_conf_files: 
+    -{ src: "application.properties.j2", dest: "{{ spring_boot_conf_directory }}/application.properties" }
+spring_boot_http_port: 9090
+spring_boot_iptables_enabled: False
+spring_boot_network_interface: "eth0"
+
+
+spring_boot_database: POSTGRESQL
+spring_boot_datasource_patform: postgres
+spring_boot_show_sql: true
+spring_boot_database_driverClassName: "org.postgresql.Driver"
+spring_boot_datasource_url: "jdbc:postgresql://localhost:5432/springboot?currentSchema=springboot"
+# Parametre a définir suivant le cas d'utilisation. Pour ce cas, ces paramètres ont été redefinis via Ansible-Vault.
+spring_boot_datasource_username:
+spring_boot_datasource_password:
+
+# Duree de validité d'un jeton d'authentification exprimé en minutes
+spring_boot_token_duration: 120
+
+#Paramètres du serveur de mail
+spring_boot_mail_host: localhost
+spring_boot_mail_port: 25
+spring_boot_mail_username:
+spring_boot_mail_password:
+spring_boot_mail_properties_mail_smtp_auth:
+spring_boot_mail_properties_mail_smtp_starttls_enable:
