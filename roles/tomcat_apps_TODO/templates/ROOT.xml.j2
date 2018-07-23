@@ -1,0 +1,23 @@
+<Context>
+
+  <Resources className="org.apache.catalina.webresources.StandardRoot">
+    <PreResources className="org.apache.catalina.webresources.DirResourceSet"
+              base="{{ apps_api_conf_directory }}"
+              internalPath="/"
+              webAppMount="/WEB-INF/classes" />
+  </Resources>
+  <Resource name="im_ws"
+    auth="Container"
+    type="javax.sql.DataSource"
+    maxActive="8"
+   	maxIdle="50"
+   	maxWait="10000"
+    username="{{ vault_db_user }}"
+    password="{{ vault_db_password }}"
+    driverClassName="org.postgresql.Driver"
+    validationQuery="SELECT 1"
+    removeAbandoned="true"
+    removeAbandonedTimeout="60"
+    testOnBorrow="true"
+    url="{{ jdbc.url }}" />
+</Context>

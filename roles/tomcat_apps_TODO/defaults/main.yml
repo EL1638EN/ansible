@@ -1,0 +1,13 @@
+---
+# defaults file for tomcat_apps
+
+
+apps_api_version: 'LATEST'
+apps_api_groupid: "com.syscom"
+apps_api_artifactid: "apps-web-service"
+apps_api_package: "war"
+apps_api_nexus_url: "{{ repo_url }}/service/local/artifact/maven/content"
+apps_api_nexus_releases_url: "{{ repo_url }}/content/repositories/releases"
+apps_api_repository: "snapshots"
+apps_api_conf_directory: "/etc/apps_api/conf"
+apps_api_logs_directory: "/var/log/apps_api"
