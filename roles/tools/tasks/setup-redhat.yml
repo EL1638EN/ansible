@@ -1,6 +1,6 @@
 ---
 # tasks file to install tools on RedHat OS family .
-- name: Install tool {{ item }} on Debian system
+- name: Install tool {{ item }} on RedHat system
   yum:
     name: "{{ item }}"
     state: latest
