@@ -10,6 +10,7 @@ tools_list:
   - vim
   - curl
   - openssl
+  - sudo
   - python{{ tools_python_version }}
   - python{{ tools_python_version }}-dev
   - python{{ tools_python_version }}-pip
