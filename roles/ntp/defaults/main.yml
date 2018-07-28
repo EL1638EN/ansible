@@ -1,4 +1,8 @@
 ---
 # defaults file for ntp
-network_interface: 'eth0'
+
+# Booleen pour contrôler l'ajout des règles de filtrage iptables sur le port ntp 123
 iptables_enabled: False
+
+# Interface réseau par défaut sur lequel les rềgles de filtrage seront appliquées
+network_interface: 'eth0'

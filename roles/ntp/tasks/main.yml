@@ -1,7 +1,7 @@
 ---
 # tasks file for ntp
 
-- name: Installing NTP...
+- name: Install NTP package.
   apt:
     name: ntp
     state: present
@@ -12,7 +12,7 @@
   when: iptables_enabled
 
 - name: Start the ntp service
-  service:
+  systemd:
     name: ntp
     state: started
     enabled: true
