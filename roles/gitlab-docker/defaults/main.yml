@@ -1,0 +1,27 @@
+---
+# defaults file for gitlab-docker
+
+# Gitlab local directories
+gitlab_base_dir: "/opt/gitlab"
+gitlab_logs_dir: "{{ gitlab_base_dir }}/logs"
+gitlab_config_dir: "{{ gitlab_base_dir }}/config"
+gitlab_data_dir: "{{ gitlab_base_dir }}/data"
+gitlab_ssl_dir: "{{ gitlab_base_dir }}/ssl"
+
+gitlab_image: "gitlab/gitlab-ce:latest"
+gitlab_hostname: ""
+
+
+# SSL Configuration.
+gitlab_redirect_http_to_https: "true"
+gitlab_ssl_certificate: "{{ gitlab_ssl_dir }}/gitlab.crt"
+gitlab_ssl_certificate_key: "{{ gitlab_ssl_dir }}/gitlab.key"
+
+# SSL Self-signed Certificate Configuration.
+gitlab_create_self_signed_cert: True
+gitlab_self_signed_cert_subj: "/C=FR/ST=Rhone/L=Lyon/O=IT/CN=gitlab"
+
+# Gitlab ports
+gitlab_ssh_port: "4433"
+gitlab_http_port: "8080"
+gitlab_https_port: "2222"

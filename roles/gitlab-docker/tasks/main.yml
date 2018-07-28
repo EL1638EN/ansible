@@ -1,0 +1,79 @@
+---
+# tasks file for gitlab-docker
+
+- name: Create gitlab directories
+  file:
+    path: "{{ item }}"
+    recurse: yes
+    state: directory
+    owner: root
+    group: root
+  with_items:
+    - "{{ gitlab_config_dir }}"
+    - "{{ gitlab_logs_dir }}"
+    - "{{ gitlab_data_dir }}"
+
+- name: Install Gitlab container
+  docker:
+    name: gitlab
+    image: "{{ gitlab_image }}"
+    hostname: "{{ gitlab_hostname }}"
+    state: started
+    ports:
+      - "{{ gitlab_ssh_port }}:22"
+      - "{{ gitlab_http_port }}:80"
+      - "{{ gitlab_https_port }}:443"
+    volumes:
+      - "{{ gitlab_config_dir }}:/etc/gitlab"
+      - "{{ gitlab_logs_dir }}:/var/log/gitlab"
+      - "{{ gitlab_data_dir }}:/var/opt/gitlab"
+    restart_policy: always
+
+- name: Create Gitlab SSL configuration folder.
+  file:
+    path: "{{ gitlab_ssl_dir }}"
+    state: directory
+    owner: root
+    group: root
+    mode: 0700
+  when: gitlab_create_self_signed_cert
+
+- name: Create self-signed certificate.
+  command: >
+    openssl req -new
+      -nodes
+      -x509
+      -subj "{{ gitlab_self_signed_cert_subj }}"
+      -days 3650
+      -keyout {{ gitlab_ssl_certificate_key }}
+      -out {{ gitlab_ssl_certificate }}
+      -extensions v3_ca
+  when: gitlab_create_self_signed_cert
+
+# - name: Deploy gitlab configuration
+#   template:
+#     src: gitlab.rb.j2
+#     dest: "{{ gitlab_config_dir }}/gitlab.rb"
+#     owner: root
+#     group: root
+#     mode: 0644
+
+
+# - name: Deploy gitlab NGINX configuration
+#   template:
+#     src: nginx.conf.j2
+#     dest: /etc/nginx/sites-available/gitlab.conf
+#     owner: root
+#     group: root
+#     mode: 0644
+
+# - name: Enable gitlab NGINX configuration
+#   file:
+#     src: /etc/nginx/sites-available/gitlab.conf
+#     dest: /etc/nginx/sites-enabled/gitlab.conf
+#     state: link
+
+# - name: Restart NGINX
+#   systemd:
+#     name: nginx
+#     state: restarted
