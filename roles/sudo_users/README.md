@@ -46,3 +46,5 @@ Author Information
 ------------------
 
 Eric LEGBA.
+
+Documentation : https://www.digitalocean.com/community/tutorials/how-to-edit-the-sudoers-file-on-ubuntu-and-centos
