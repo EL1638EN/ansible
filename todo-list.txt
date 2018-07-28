@@ -9,8 +9,22 @@ Les rôles impactés seraient : Apache, Tomcat, SonarQube, Nexus, postgres_insta
 
 3°)Faire un playbook contenant tous les rôles pour initialiser un serveur dédié from scratch
 
+3°)Faire un playbook contenant tous les rôles pour initialiser un serveur usine de dev from scratch
+
 4°) Faire la documentation d'installation pour : 
  - JDK, Maven, Gradle
  - Proftpd
  - etc..
  Il faut refaire ces docs d'installation améliorés avec Gitbook
+
+Liste des rôles à écrire/améliorer
+	- haproxy
+	- tomcat_apps_TODO
+	- gitlab-docker
+	- sonarqube-docker
+	- nexus-docker
+	- jenkins-docker
+	- apache-docker
+	- nginx-docker
+	- springboot-docker
+	
