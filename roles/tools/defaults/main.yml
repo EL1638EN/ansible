@@ -1,7 +1,10 @@
 ---
 # defaults file for tools
+# Version de Python qui sera installé
 tools_python_version: 3
+# Commande pour installer pip
 tools_easy_install: 'easy_install{{ tools_python_version }}'
+#Liste des outils à installer
 tools_list:
   - git
   - vim

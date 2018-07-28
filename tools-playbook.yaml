@@ -7,4 +7,5 @@
   become: yes
   roles:
     - role: tools
+      tools_python_version: 3
       tags: ['tools']
