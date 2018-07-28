@@ -1,0 +1,13 @@
+---
+# defaults file for tools
+tools_python_version: 3
+tools_easy_install: 'easy_install{{ tools_python_version }}'
+tools_list:
+  - git
+  - vim
+  - curl
+  - openssl
+  - python{{ tools_python_version }}
+  - python{{ tools_python_version }}-dev
+  - python{{ tools_python_version }}-pip
+  - python{{ tools_python_version }}-setuptools

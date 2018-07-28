@@ -1,0 +1,4 @@
+---
+# tasks file for tools
+
+- include_tasks: setup-{{ ansible_os_family | lower }}.yml

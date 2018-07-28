@@ -1,0 +1,13 @@
+---
+# tasks file to install tools on debian OS family.
+
+- name: Install tool {{ item }} on Debian system
+  apt:
+    pkg: "{{ item }}"
+    state: latest
+    update_cache: yes
+  with_items: "{{ tools_list }}"
+
+- name: Install pip
+  command: >
+    {{ tools_easy_install }} pip

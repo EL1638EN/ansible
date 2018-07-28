@@ -1,0 +1,12 @@
+---
+# tasks file to install tools on RedHat OS family .
+- name: Install tool {{ item }} on Debian system
+  yum:
+    name: "{{ item }}"
+    state: latest
+    update_cache: yes
+  with_items: "{{ tools_list }}"
+
+- name: Install pip
+  command: >
+    {{ tools_easy_install }} pip
