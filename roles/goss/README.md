@@ -37,4 +37,4 @@ Eric Coovi LEGBA.
 Resources
 ------------------
 
-https://github.com/aelsabbahy/goss
+Documentation disponible : https://github.com/aelsabbahy/goss
