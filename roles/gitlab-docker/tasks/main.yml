@@ -50,6 +50,13 @@
       -extensions v3_ca
   when: gitlab_create_self_signed_cert
 
+
+## TODO
+## 1°) Gérer les cerificats auto-signés
+## 2°) Déployer un fichier templates gitlab.rb.j2 ou modifier certaines directives avec lineinfile
+## 3°) Déployer une configuration nginx devant Gitlab ?
+
+
 # - name: Deploy gitlab configuration
 #   template:
 #     src: gitlab.rb.j2

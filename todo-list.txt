@@ -21,7 +21,7 @@ Liste des rôles à écrire/améliorer
 	- haproxy
 	- tomcat_apps_TODO
 	- gitlab-docker
-	- sonarqube-docker
+	- sonarqube-docker (https://github.com/gikoluo/ansible-role-sonar-docker/blob/master/tasks/main.yml)
 	- nexus-docker
 	- jenkins-docker
 	- apache-docker
