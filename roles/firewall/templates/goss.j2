@@ -1,35 +1,18 @@
 ---
-# goss file to check firewall situation
-package:
-  iptables:
-    installed: true
+
+{% for current_file in firewall_script_files %}
 
 file:
-  /etc/firewall-start-rules:
+  {{ current_file.dest }}:
     exists: true
-    mode: "0744"
+    mode: "{{ current_file.mode }}"
     owner: root
     group: root
     filetype: file
 
-file:
-  /etc/firewall-stop-rules:
-    exists: true
-    mode: "0744"
-    owner: root
-    group: root
-    filetype: file
+{% endfor %}
 
-file:
-  /etc/init.d/firewall:
-    exists: true
-    mode: "0755"
-    owner: root
-    group: root
-    filetype: file
-
-service:
+sytemd:
   firewall:
-    # required attributes
     enabled: true
     running: true

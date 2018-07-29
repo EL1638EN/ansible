@@ -1,10 +1,13 @@
 ---
 # defaults file for firewall
 firewall_network_interface: "eth0"
+firewall_start_script: "/etc/firewall-start-rules"
+firewall_stop_script: "/etc/firewall-stop-rules"
+firewall_daemon_script: "/etc/systemd/system/firewall.service"
 firewall_script_files:
- - { src: "firewall-start-rules.j2", dest: "/etc/firewall-start-rules", mode: "0744" }
- - { src: "firewall-stop-rules.j2", dest: "/etc/firewall-stop-rules", mode: "0744" }
- - { src: "firewall.j2", dest: "/etc/init.d/firewall", mode: "0755" }
+ - { src: "firewall-start-rules.j2", dest: "{{ firewall_start_script }}", mode: "0744" }
+ - { src: "firewall-stop-rules.j2", dest: "{{ firewall_stop_script }}", mode: "0744" }
+ - { src: "daemon.service.j2", dest: "{{ firewall_daemon_script }}", mode: "0644" }
 
 firewall_input_allowed_ports:
  - { port: "21", protocol: "tcp", comment: "TCP - FTP Input trafic" }
@@ -57,8 +60,7 @@ firewall_goss_enabled: False
 #   443: HTTPS
 #   4949: Munin
 #   6082: Varnish admin
-#   8080: HTTP alternate (Tomcat)
 #   8080: Tomcat HTTP
 #   8443: Tomcat HTTPS
 #   9000: SonarQube
-# for more informations about ports, look at  http://help.ovh.com/Firewall
+# for more informations about ports, look at  https://forum.ovh.com/showthread.php/67604-Lancer-un-script-firewall-(iptables)-au-d%C3%A9marrage-du-serveur

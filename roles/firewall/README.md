@@ -49,3 +49,4 @@ Author Information
 ------------------
 
 Eric LEGBA.
+https://forum.ovh.com/showthread.php/67604-Lancer-un-script-firewall-(iptables)-au-d%C3%A9marrage-du-serveur

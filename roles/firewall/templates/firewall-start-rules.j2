@@ -4,6 +4,7 @@
 
 IPTABLES=/sbin/iptables
 
+
 # Flush iptables.
 $IPTABLES -t filter -F
   
@@ -55,13 +56,7 @@ $IPTABLES -A OUTPUT -j LOG
 {% endif %}
 
 
-# Drop input trafic.
-$IPTABLES -t filter -P INPUT DROP
-
-# Drop all output trafic.
-$IPTABLES -t filter -P OUTPUT DROP
-
-# Drop forward.
-$IPTABLES -t filter -P FORWARD DROP
+# Drop all other traffic.
+$IPTABLES -t filter -A INPUT -j DROP
 
 exit 0
