@@ -22,7 +22,7 @@ case "$1" in
     ;;
   restart)
     echo "Restarting Iptables Firewall."
-    . /etc/firewall-start-rules.sh
+    . /etc/firewall-start-rules
     ;;
   status)
     echo -e "`$IPTABLES -L -n`"
