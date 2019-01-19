@@ -1,5 +1,0 @@
----
-# handlers file for maven
-
-- name: Reload profile variable
-  shell: . /etc/profile

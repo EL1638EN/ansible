@@ -1,7 +1,0 @@
----
-# tasks file for logrotate
-
-- name: Install logrotate package
-  apt:
-    pkg: logrotate
-    state: present
